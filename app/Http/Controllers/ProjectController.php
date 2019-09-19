@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    public function __constract()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $project = auth()->user()->projects()->paginate(15);
+        return view('project.index',compact('project'));
     }
 
     /**
