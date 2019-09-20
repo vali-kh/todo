@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
-    public function __constract()
+    
+    public function __construct()
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +21,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = auth()->user()->projects()->paginate(15);
-        return view('project.index',compact('project'));
+        $projects = auth()->user()->projects()->paginate(6);
+        return view('project.index',compact('projects'));
     }
 
     /**
@@ -29,7 +32,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('project.create');
     }
 
     /**
@@ -40,7 +43,13 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Project::create($request->validate([
+                'name' => 'required',
+                'description' => 'required'
+            ])+['owner_id' => auth()->id()]
+        );
+
+        return redirect('/projects')->with('success'.'Project Created Successfully.');
     }
 
     /**
@@ -51,7 +60,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        abort_unless(auth()->user()->owns($project),403);
+        return view('project.project',compact('project'));
     }
 
     /**
@@ -62,7 +72,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        abort_unless(auth()->user()->owns($project),403);
+        return view('project.edit',compact('project'));
     }
 
     /**
@@ -74,7 +85,14 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        abort_unless(auth()->user()->owns($project),403);
+
+        $project->update($request->validate([
+            'name' => 'required | min:3',
+            'description' => 'required | min:3'
+        ]));
+
+        return Redirect::back()->with('success','Projects edited Successfully!');
     }
 
     /**
@@ -85,6 +103,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        abort_unless(auth()->user()->owns($project),403);
+
+        $project->delete();
+
+        return redirect('/projects')->with('success','Project deleted Successfully.');
     }
 }

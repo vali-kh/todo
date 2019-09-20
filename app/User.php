@@ -40,6 +40,11 @@ class User extends Authenticatable
 
     public function projects()
     {
-        return $this->hasMeny(Project::class,'owner_id');
+        return $this->hasMany(Project::class,'owner_id');
+    }
+
+    public function owns(Project $project)
+    {
+        return $project->owner_id == auth()->id();
     }
 }

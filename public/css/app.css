@@ -10644,3 +10644,24 @@ a.text-dark:focus {
   }
 }
 
+.hv {
+  height: 100vh;
+  position: relative;
+}
+
+.hv p {
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+}
+
+.hv ul {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
