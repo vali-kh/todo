@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+//Route::resource('projects','apiProjectController');
+
+Route::get('/projects','apiProjectController@index');
+Route::post('/projects','apiProjectController@store');
+Route::get('/projects/{project}','apiProjectController@show');
+Route::patch('/projects/{project}','apiProjectController@update');
+Route::delete('/projects/{project}','apiProjectController@destroy');
