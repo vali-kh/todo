@@ -19,6 +19,11 @@
                         <li class="nav-item">
                           <a class="nav-link" href="{{route('AboutUs')}}">About Us</a>
                         </li>
+                        @if(Auth::check())
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{route('api_token')}}">api_token</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

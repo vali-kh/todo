@@ -25,4 +25,10 @@ class AboutUsController extends Controller
     {
         return view('AboutUs');
     }
+
+    public function api()
+    {
+        $api_token = auth()->user()->api();
+        return view('ApiKey',compact('api_token'));
+    }
 }

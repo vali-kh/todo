@@ -4,7 +4,10 @@
 <div class="container">
     <div class="hv">
         <p class="display-2">To Do Project</p>
-            <ul class="nav justify-content-center">
+            
+    </div>
+    <div>
+      <ul class="nav justify-content-center">
                 <li class="nav-item">
                   <a class="nav-link" href="{{route('projects.create')}}">Create New Project</a>
                 </li>

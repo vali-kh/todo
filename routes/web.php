@@ -18,5 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/about', 'AboutUsController@index')->name('AboutUs');
+Route::get('/userapikey', 'AboutUsController@api')->name('api_token');
 
 Route::resource('projects','ProjectController');

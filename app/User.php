@@ -6,6 +6,7 @@ use App\Project;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function owns(Project $project)
     {
         return $project->owner_id == auth()->id();
+    }
+
+    public function api()
+    {
+        return DB::table('users')->where('id', auth()->id())->value('api_token');
     }
 }
