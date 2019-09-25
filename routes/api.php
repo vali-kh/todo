@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login','ApiPassportController@login');
+Route::post('/logout','ApiPassportController@logoutApi');
+
+
 
 //Route::resource('projects','apiProjectController');
 

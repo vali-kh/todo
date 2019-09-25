@@ -6,6 +6,7 @@ use App\Project;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
@@ -52,6 +53,7 @@ class User extends Authenticatable
 
     public function api()
     {
-        return DB::table('users')->where('id', auth()->id())->value('api_token');
+        //return DB::table('users')->where('id', auth()->id())->value('api_token');
+        return Auth::user()->createToken('MyApp')->accessToken;
     }
 }
